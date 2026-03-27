@@ -5,7 +5,7 @@ const crearPedido = (req, res) => {
   pedidos.push(nuevoPedido);
 
   res.json({
-    mensaje: "Pedido creado correctamente",
+    mensaje: "Pedido registrado correctamente",
     pedido: nuevoPedido
   });
 };

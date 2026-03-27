@@ -11,7 +11,7 @@ const pagoRoutes = require("./routes/pagoRoutes");
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("Backend WoW Carrys funcionando");
+  res.send("Backend plataforma de servicios digitales funcionando");
 });
 
 app.use("/servicios", servicioRoutes);
