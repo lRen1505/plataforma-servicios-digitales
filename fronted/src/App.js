@@ -18,42 +18,46 @@ function App() {
       .catch((error) => console.error("Error:", error));
   }, []);
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  console.log("Enviando cliente:", cliente);
-
-  try {
-    const res = await fetch("http://localhost:4000/clientes", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(cliente)
-    });
-
-    const data = await res.json();
-    console.log("Respuesta:", data);
-
-    if (!res.ok) {
-      alert(data.mensaje || "Error al registrar cliente");
-      return;
-    }
-
-    alert("Cliente registrado correctamente");
-
+  const handleChange = (e) => {
     setCliente({
-      nombreCliente: "",
-      correo: "",
-      medioContacto: "",
-      pais: "",
-      fechaRegistro: ""
+      ...cliente,
+      [e.target.name]: e.target.value
     });
-  } catch (error) {
-    console.error("Error:", error);
-    alert("No se pudo conectar con el backend");
-  }
-};
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await fetch("http://localhost:4000/clientes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(cliente)
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.mensaje || "Error al registrar cliente");
+        return;
+      }
+
+      alert("Cliente registrado correctamente");
+
+      setCliente({
+        nombreCliente: "",
+        correo: "",
+        medioContacto: "",
+        pais: "",
+        fechaRegistro: ""
+      });
+    } catch (error) {
+      console.error("Error:", error);
+      alert("No se pudo conectar con el backend");
+    }
+  };
 
   return (
     <div style={{ padding: "20px" }}>
@@ -68,6 +72,55 @@ const handleSubmit = async (e) => {
           <hr />
         </div>
       ))}
+
+      <h2>Registrar Cliente</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="nombreCliente"
+          placeholder="Nombre del cliente"
+          value={cliente.nombreCliente}
+          onChange={handleChange}
+        />
+        <br /><br />
+
+        <input
+          type="email"
+          name="correo"
+          placeholder="Correo"
+          value={cliente.correo}
+          onChange={handleChange}
+        />
+        <br /><br />
+
+        <input
+          type="text"
+          name="medioContacto"
+          placeholder="Medio de contacto"
+          value={cliente.medioContacto}
+          onChange={handleChange}
+        />
+        <br /><br />
+
+        <input
+          type="text"
+          name="pais"
+          placeholder="País"
+          value={cliente.pais}
+          onChange={handleChange}
+        />
+        <br /><br />
+
+        <input
+          type="date"
+          name="fechaRegistro"
+          value={cliente.fechaRegistro}
+          onChange={handleChange}
+        />
+        <br /><br />
+
+        <button type="submit">Registrar Cliente</button>
+      </form>
     </div>
   );
 }

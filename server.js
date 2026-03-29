@@ -1,7 +1,9 @@
 const express = require("express");
+const cors = require("cors"); // 👈 AGREGAR
 const db = require("./config/db");
+
 const app = express();
-const PORT = 3000;
+const PORT = 4000;
 
 const servicioRoutes = require("./routes/servicioRoutes");
 const pedidoRoutes = require("./routes/pedidoRoutes");
@@ -9,6 +11,7 @@ const clienteRoutes = require("./routes/clienteRoutes");
 const pagoRoutes = require("./routes/pagoRoutes");
 
 app.use(express.json());
+app.use(cors()); // 👈 AGREGAR
 
 app.get("/", (req, res) => {
   res.send("Backend plataforma de servicios digitales funcionando");
