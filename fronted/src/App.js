@@ -3,6 +3,7 @@ import "./App.css";
 
 function App() {
   const [servicios, setServicios] = useState([]);
+  const [pedidos, setPedidos] = useState([]);
 
   const [formData, setFormData] = useState({
     nombreCliente: "",
@@ -15,11 +16,23 @@ function App() {
     observaciones: ""
   });
 
-  useEffect(() => {
+  const obtenerServicios = () => {
     fetch("http://localhost:4000/servicios")
       .then((res) => res.json())
       .then((data) => setServicios(data))
       .catch((error) => console.error("Error al obtener servicios:", error));
+  };
+
+  const obtenerPedidos = () => {
+    fetch("http://localhost:4000/pedidos")
+      .then((res) => res.json())
+      .then((data) => setPedidos(data))
+      .catch((error) => console.error("Error al obtener pedidos:", error));
+  };
+
+  useEffect(() => {
+    obtenerServicios();
+    obtenerPedidos();
   }, []);
 
   const handleChange = (e) => {
@@ -33,7 +46,6 @@ function App() {
     e.preventDefault();
 
     try {
-      // 1. Registrar cliente
       const clienteResponse = await fetch("http://localhost:4000/clientes", {
         method: "POST",
         headers: {
@@ -55,7 +67,6 @@ function App() {
         return;
       }
 
-      // 2. Buscar el servicio seleccionado para obtener precio
       const servicioSeleccionado = servicios.find(
         (servicio) => String(servicio.id_servicio) === String(formData.idServicio)
       );
@@ -65,7 +76,6 @@ function App() {
         return;
       }
 
-      // 3. Crear pedido
       const pedidoResponse = await fetch("http://localhost:4000/pedidos", {
         method: "POST",
         headers: {
@@ -101,6 +111,8 @@ function App() {
         fechaPedido: "",
         observaciones: ""
       });
+
+      obtenerPedidos();
     } catch (error) {
       console.error("Error:", error);
       alert("No se pudo conectar con el backend");
@@ -199,6 +211,25 @@ function App() {
           <button type="submit">Solicitar Servicio</button>
         </form>
       </div>
+
+      <h2>Pedidos registrados</h2>
+      {pedidos.length === 0 ? (
+        <div className="card">
+          <p>No hay pedidos registrados aún.</p>
+        </div>
+      ) : (
+        pedidos.map((pedido) => (
+          <div className="card" key={pedido.id_pedido}>
+            <h3>{pedido.nombre_servicio}</h3>
+            <p><strong>Cliente:</strong> {pedido.nombre_cliente}</p>
+            <p><strong>Descripción:</strong> {pedido.descripcion_requerimiento}</p>
+            <p><strong>Fecha:</strong> {pedido.fecha_pedido?.split("T")[0]}</p>
+            <p><strong>Estado:</strong> {pedido.estado_pedido}</p>
+            <p><strong>Monto:</strong> {pedido.monto_total}</p>
+            <p><strong>Observaciones:</strong> {pedido.observaciones}</p>
+          </div>
+        ))
+      )}
     </div>
   );
 }
