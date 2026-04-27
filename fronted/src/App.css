@@ -1,38 +1,175 @@
-.App {
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #0f172a;
+  color: #fff;
+}
+
+/* NAV */
+.nav {
+  background: rgba(15, 23, 42, 0.9);
+  padding: 15px 30px;
+  position: sticky;
+  top: 0;
+}
+
+.nav__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav__logo-text {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.nav__links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav__link {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.nav__link:hover {
+  color: #38bdf8;
+}
+
+/* HERO */
+.hero {
+  padding: 80px 40px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.hero__title {
+  font-size: 48px;
+  font-weight: bold;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.gradient-text {
+  color: #38bdf8;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.hero__subtitle {
+  margin-top: 15px;
+  opacity: 0.8;
+}
+
+/* BUTTONS */
+.btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn--primary {
+  background: #38bdf8;
+  color: black;
+}
+
+.btn--primary:hover {
+  background: #0ea5e9;
+}
+
+.btn--outline {
+  background: transparent;
+  border: 1px solid #38bdf8;
+  color: #38bdf8;
+}
+
+/* SECTION */
+.section {
+  padding: 60px 40px;
+}
+
+.section__title {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.section__subtitle {
+  opacity: 0.7;
+}
+
+/* SERVICES */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  margin-top: 30px;
+  gap: 20px;
+}
+
+.service-card {
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+}
+
+/* FORM */
+.contact-form {
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  margin-top: 5px;
+}
+
+/* TABLE */
+.orders-table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+.orders-table th,
+.orders-table td {
+  padding: 10px;
+  border-bottom: 1px solid #334155;
+}
+
+/* STATUS */
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 6px;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* FOOTER */
+.footer {
+  background: #020617;
+  padding: 30px;
+  margin-top: 40px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.footer__bottom {
+  margin-top: 20px;
+  font-size: 12px;
+  opacity: 0.6;
 }
