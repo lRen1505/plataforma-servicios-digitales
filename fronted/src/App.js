@@ -82,7 +82,6 @@ const ICONS = {
   ),
 };
 
-const serviceIcons = { web: ICONS.web, mobile: ICONS.mobile, seo: ICONS.seo, cloud: ICONS.cloud, design: ICONS.design, analytics: ICONS.analytics };
 
 const getServiceIcon = (name = "") => {
   const n = name.toLowerCase();
@@ -826,4 +825,3 @@ export default function App() {
   );
 }
 
-export default App;
